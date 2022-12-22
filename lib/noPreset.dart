@@ -1,9 +1,13 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
-import 'package:realtime/widget.dart';
+import 'package:realtime/hivedbops.dart';
 
-class CustomCalendar extends StatefulWidget {
+// ignore: camel_case_types
+class noPreset extends StatefulWidget {
   final DateTime? minimumDate;
 
   final DateTime? maximumDate;
@@ -15,7 +19,7 @@ class CustomCalendar extends StatefulWidget {
 
   final Function(DateTime, DateTime)? startEndDateChange;
 
-  const CustomCalendar({
+  const noPreset({
     Key? key,
     this.typeofCalandar,
     this.initialStartDate,
@@ -26,10 +30,11 @@ class CustomCalendar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  CustomCalendarState createState() => CustomCalendarState();
+  noPresetState createState() => noPresetState();
 }
 
-class CustomCalendarState extends State<CustomCalendar> {
+class noPresetState extends State<noPreset> {
+  final box = Hive.box('RealBox');
   List<DateTime> dateList = <DateTime>[];
 
   DateTime currentMonthDate = DateTime.now();
@@ -43,10 +48,12 @@ class CustomCalendarState extends State<CustomCalendar> {
     setListOfDate(currentMonthDate);
     if (widget.initialStartDate != null) {
       startDate = widget.initialStartDate;
+    } else if (box.get('noPreset') != null) {
+      startDate = box.get('noPreset');
+    } else {
+      startDate = DateTime.now();
     }
-    if (widget.initialEndDate != null) {
-      endDate = widget.initialEndDate;
-    }
+
     super.initState();
   }
 
@@ -57,9 +64,8 @@ class CustomCalendarState extends State<CustomCalendar> {
 
 //getting days form month
   void setListOfDate(DateTime monthDate) {
-    print("select list of date");
     dateList.clear();
-    var x = 0;
+
     final DateTime newDate = DateTime(monthDate.year, monthDate.month, 0);
     int previousMothDay = 0;
 
@@ -96,181 +102,63 @@ class CustomCalendarState extends State<CustomCalendar> {
     }
   }
 
-  List menu = [
-    "Never Ends",
-    "15 Days later",
-    "30 Days later",
-    "60 Days later",
-  ];
   String action = "Never Ends";
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return FittedBox(
+      fit: BoxFit.contain,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          // if (widget.typeofCalandar == "4P")
           Row(
-            children: [
-              SizedBox(
-                height: 40,
-                width: MediaQuery.of(context).size.width / 2.25,
-                child: MaterialButton(
-                  elevation: 0,
-                  color: isActive("N") ? Colors.blue : Colors.blue[50],
-                  onPressed: () {
-                    setState(() {
-                      action = "N";
-                      UpdateAction(action);
-                    });
-                  },
-                  child: Center(
-                    child: Text(
-                      'Never Ends',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        color: isActive("N") ? Colors.white : Colors.blue,
-                      ),
+            children: <Widget>[
+              const SizedBox(
+                width: 42,
+              ),
+              InkWell(
+                //left Arrow
+                child: Ink(
+                    decoration: const ShapeDecoration(
+                      shape: CircleBorder(),
                     ),
+                    child: const Icon(Icons.arrow_left_rounded, size: 52)),
+                onTap: () {
+                  setState(() {
+                    currentMonthDate = DateTime(
+                        currentMonthDate.year, currentMonthDate.month, 0);
+                    setListOfDate(currentMonthDate);
+                  });
+                },
+              ),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    DateFormat('MMMM yyyy').format(currentMonthDate),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: Colors.black),
                   ),
                 ),
               ),
-              Spacer(),
-              SizedBox(
-                height: 40,
-                width: MediaQuery.of(context).size.width / 2.25,
-                child: MaterialButton(
-                  elevation: 0,
-                  color: isActive("15") ? Colors.blue : Colors.blue[50],
-                  onPressed: () {
-                    setState(() {
-                      action = "15";
-                      UpdateAction(action);
-                    });
-                  },
-                  child: Center(
-                    child: Text(
-                      '15 Days later',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        color: isActive("15") ? Colors.white : Colors.blue,
-                      ),
+              InkWell(
+                child: Ink(
+                    decoration: const ShapeDecoration(
+                      shape: CircleBorder(),
                     ),
-                  ),
-                ),
+                    child: const Icon(Icons.arrow_right_rounded, size: 52)),
+                onTap: () {
+                  setState(() {
+                    currentMonthDate = DateTime(
+                        currentMonthDate.year, currentMonthDate.month + 2, 0);
+                    setListOfDate(currentMonthDate);
+                  });
+                },
+              ),
+              const SizedBox(
+                width: 42,
               ),
             ],
-          ),
-          spaceBox(20),
-          Row(
-            children: [
-              SizedBox(
-                height: 40,
-                width: MediaQuery.of(context).size.width / 2.25,
-                child: MaterialButton(
-                  elevation: 0,
-                  color: isActive("30") ? Colors.blue : Colors.blue[50],
-                  onPressed: () {
-                    setState(() {
-                      action = "30";
-                      UpdateAction(action);
-                    });
-                  },
-                  child: Center(
-                    child: Text(
-                      '30 Days later',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        color: isActive("30") ? Colors.white : Colors.blue,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Spacer(),
-              SizedBox(
-                height: 40,
-                width: MediaQuery.of(context).size.width / 2.25,
-                child: MaterialButton(
-                  elevation: 0,
-                  color: isActive("60") ? Colors.blue : Colors.blue[50],
-                  onPressed: () {
-                    setState(() {
-                      action = "60";
-                      UpdateAction(action);
-                    });
-                  },
-                  child: Center(
-                    child: Text(
-                      '60 Days later',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        color: isActive("60") ? Colors.white : Colors.blue,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 4.0, right: 4.0, top: 4, bottom: 4),
-            //Header Row
-            child: Row(
-              children: <Widget>[
-                const SizedBox(
-                  width: 35,
-                ),
-                InkWell(
-                  //left Arrow
-                  child: Ink(
-                      decoration: const ShapeDecoration(
-                        shape: CircleBorder(),
-                      ),
-                      child: const Icon(Icons.arrow_left_rounded, size: 52)),
-                  onTap: () {
-                    setState(() {
-                      currentMonthDate = DateTime(
-                          currentMonthDate.year, currentMonthDate.month, 0);
-                      setListOfDate(currentMonthDate);
-                    });
-                  },
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      DateFormat('MMMM yyyy').format(currentMonthDate),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 15,
-                          color: Colors.black),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  child: Ink(
-                      decoration: const ShapeDecoration(
-                        shape: CircleBorder(),
-                      ),
-                      child: const Icon(Icons.arrow_right_rounded, size: 52)),
-                  onTap: () {
-                    setState(() {
-                      currentMonthDate = DateTime(
-                          currentMonthDate.year, currentMonthDate.month + 2, 0);
-                      setListOfDate(currentMonthDate);
-                    });
-                  },
-                ),
-                const SizedBox(
-                  width: 35,
-                ),
-              ],
-            ),
           ),
           //Day names
           Row(
@@ -285,7 +173,7 @@ class CustomCalendarState extends State<CustomCalendar> {
           ),
           Padding(
             padding:
-                const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
+                const EdgeInsets.only(left: 4, right: 4, bottom: 0, top: 2),
             child: Row(
               children: [
                 Expanded(
@@ -295,25 +183,29 @@ class CustomCalendarState extends State<CustomCalendar> {
                       const Icon(
                         Icons.calendar_today_outlined,
                         color: Colors.blue,
-                        size: 22,
+                        size: 20,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 60,
                       ),
                       Text(
                         endDate != null
                             ? DateFormat('dd MMM yyyy').format(endDate!)
                             : '           ',
-                        style: const TextStyle(fontSize: 13),
+                        style: const TextStyle(fontSize: 11),
                       ),
                       const SizedBox(
-                        width: 20,
+                        width: 15,
                       )
                     ],
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 6,
+                  width: MediaQuery.of(context).size.width / 8,
                 ),
                 SizedBox(
-                  width: 60,
+                  width: MediaQuery.of(context).size.width / 5,
+                  height: MediaQuery.of(context).size.height / 28,
                   child: MaterialButton(
                     elevation: 0,
                     color: Colors.blue[50],
@@ -333,11 +225,11 @@ class CustomCalendarState extends State<CustomCalendar> {
                   ),
                 ),
                 const SizedBox(
-                  width: 15,
+                  width: 10,
                 ),
                 Container(
                   width: 60,
-                  height: 28,
+                  height: MediaQuery.of(context).size.height / 28,
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: const BorderRadius.all(Radius.circular(5.0)),
@@ -348,13 +240,16 @@ class CustomCalendarState extends State<CustomCalendar> {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(1.0)),
                       highlightColor: Colors.transparent,
-                      onTap: () {},
+                      onTap: () {
+                        Crud().noPresetAdd(startDate!);
+                        Navigator.pop(context);
+                      },
                       child: const Center(
                         child: Text(
                           'Save',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 14,
+                              fontSize: 10,
                               color: Colors.white),
                         ),
                       ),
@@ -380,7 +275,7 @@ class CustomCalendarState extends State<CustomCalendar> {
               child: Text(
                 DateFormat('EEE').format(dateList[i]),
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 11,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -416,17 +311,31 @@ class CustomCalendarState extends State<CustomCalendar> {
     return false;
   }
 
-  Color cellColor(DateTime date) {
-    if (date == startDate) {
-      return Colors.white;
-    } else if (date.day == DateTime.now().day &&
-        date.month == DateTime.now().month &&
-        date.year == DateTime.now().year) {
+  Color CellContainerColor(DateTime date) {
+    if (date.day == startDate!.day &&
+        date.month == startDate!.month &&
+        date.year == startDate!.year) {
       return Colors.blue;
-    } else if (isThisMonth(date)) {
-      return Colors.black;
     }
-    return Colors.grey;
+    return Colors.transparent;
+  }
+
+  Color cellColor(DateTime date) {
+    if (date.day == startDate!.day &&
+        date.month == startDate!.month &&
+        date.year == startDate!.year) {
+      return Colors.white;
+    } else {
+      if (date.day == DateTime.now().day &&
+          date.month == DateTime.now().month &&
+          date.year == DateTime.now().year) {
+        return Colors.blue;
+      } else if (isThisMonth(date)) {
+        return Colors.black;
+      } else {
+        return Colors.grey;
+      }
+    }
   }
 
   List<Widget> getDaysNoUI() {
@@ -461,9 +370,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                             width: 27,
                             height: 25,
                             decoration: BoxDecoration(
-                              color: date == startDate
-                                  ? Colors.blue
-                                  : Colors.transparent,
+                              color: CellContainerColor(date),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(32.0)),
                               border: Border.all(
@@ -522,7 +429,7 @@ class CustomCalendarState extends State<CustomCalendar> {
     // if (startDate!.month != date.month) {
     //   setListOfDate(startDate!);
     // }
-    print("date clicl");
+
     setState(() {
       startDate = endDate = date;
       currentMonthDate = startDate!;

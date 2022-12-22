@@ -54,17 +54,17 @@ class CustomCalendarState extends State<CustomCalendar> {
 //getting days form month
   void setListOfDate(DateTime monthDate) {
     dateList.clear();
-    var x = 0;
+
     final DateTime newDate = DateTime(monthDate.year, monthDate.month, 0);
     int previousMothDay = 0;
-    print(" Week day : ${newDate.weekday}");
+
     if (newDate.weekday < 6) {
       previousMothDay = newDate.weekday;
       //past month dates
       for (int i = 0; i <= previousMothDay + 1; i++) {
         dateList.add(newDate.subtract(Duration(days: previousMothDay - i)));
       }
-      print(" previous ${dateList.length - 1}");
+
       dateList.removeLast();
     } else if (newDate.weekday == 7) {
       previousMothDay = 1;
@@ -72,7 +72,7 @@ class CustomCalendarState extends State<CustomCalendar> {
       for (int i = 0; i <= previousMothDay + 1; i++) {
         dateList.add(newDate.subtract(Duration(days: previousMothDay - i)));
       }
-      print(" previous ${dateList.length - 1}");
+
       dateList.removeLast();
     }
 
@@ -89,7 +89,6 @@ class CustomCalendarState extends State<CustomCalendar> {
         dateList.add(newDate.add(Duration(days: i + 1)));
       }
     }
-    print(dateList.length);
   }
 
   @override
@@ -192,7 +191,6 @@ class CustomCalendarState extends State<CustomCalendar> {
   }
 
   bool isThisMonth(DateTime testDate) {
-    DateTime now = DateTime.now();
     if (DateFormat('MMMM yyyy').format(testDate) ==
         DateFormat('MMMM yyyy').format(currentMonthDate)) {
       return true;
@@ -299,9 +297,8 @@ class CustomCalendarState extends State<CustomCalendar> {
 
 //start DAte selctor
   void onDateClick(DateTime date) {
-    print("Date selected :: $date");
     setState(() {
-      final startDate = endDate = date;
+      startDate = endDate = date;
     });
   }
 }

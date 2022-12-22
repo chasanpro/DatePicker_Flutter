@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:custom_date_range_picker/custom_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -214,7 +216,6 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                 elevation: 0,
                                 color: Colors.blue[50],
                                 onPressed: () {
-                                  print(startDate);
                                   // try {
                                   //   widget.onCancelClick();
                                   //   Navigator.pop(context);

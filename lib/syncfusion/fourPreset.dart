@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
-import 'package:realtime/hivedbops.dart';
 import 'package:realtime/widget.dart';
 
-class sixpreset extends StatefulWidget {
+import '../hivedbops.dart';
+
+class fourPreset extends StatefulWidget {
   final DateTime? minimumDate;
 
   final DateTime? maximumDate;
@@ -17,7 +18,7 @@ class sixpreset extends StatefulWidget {
 
   final Function(DateTime, DateTime)? startEndDateChange;
 
-  const sixpreset({
+  const fourPreset({
     Key? key,
     this.typeofCalandar,
     this.initialStartDate,
@@ -28,10 +29,10 @@ class sixpreset extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  sixpresetState createState() => sixpresetState();
+  fourPresetState createState() => fourPresetState();
 }
 
-class sixpresetState extends State<sixpreset> {
+class fourPresetState extends State<fourPreset> {
   final box = Hive.box('RealBox');
   List<DateTime> dateList = <DateTime>[];
 
@@ -39,13 +40,15 @@ class sixpresetState extends State<sixpreset> {
 
   DateTime? startDate;
 
+  DateTime? endDate;
+
   @override
   void initState() {
     setListOfDate(currentMonthDate);
     if (widget.initialStartDate != null) {
       startDate = widget.initialStartDate;
-    } else if (box.get('sixPreset') != null) {
-      startDate = box.get('sixPreset');
+    } else if (box.get('fourPreset') != null) {
+      startDate = box.get('fourPreset');
     } else {
       startDate = DateTime.now();
     }
@@ -99,7 +102,7 @@ class sixpresetState extends State<sixpreset> {
     }
   }
 
-  String action = "Today";
+  String action = "Never Ends";
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -114,102 +117,45 @@ class sixpresetState extends State<sixpreset> {
                 width: MediaQuery.of(context).size.width / 2.5,
                 child: MaterialButton(
                   elevation: 0,
-                  color: isActive("Y") ? Colors.blue : Colors.blue[50],
+                  color: isActive("N") ? Colors.blue : Colors.blue[50],
                   onPressed: () {
                     setState(() {
-                      action = "Y";
-                      yesterday();
+                      action = "N";
+                      UpdateAction(action);
                     });
                   },
                   child: Center(
                     child: Text(
-                      'Yesterday',
+                      'Never Ends',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
-                        color: isActive("Y") ? Colors.white : Colors.blue,
+                        color: isActive("N") ? Colors.white : Colors.blue,
                       ),
                     ),
                   ),
                 ),
               ),
-              const Spacer(),
+              Spacer(),
               SizedBox(
                 height: 40,
                 width: MediaQuery.of(context).size.width / 2.5,
                 child: MaterialButton(
                   elevation: 0,
-                  color: isActive("Tod") ? Colors.blue : Colors.blue[50],
+                  color: isActive("15") ? Colors.blue : Colors.blue[50],
                   onPressed: () {
                     setState(() {
-                      action = "Tod";
-                      print(action);
-                      onDateClick(DateTime.now());
+                      action = "15";
+                      UpdateAction(action);
                     });
                   },
                   child: Center(
                     child: Text(
-                      'Today',
+                      '15 Days later',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
-                        color: isActive("Tod") ? Colors.white : Colors.blue,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          spaceBox(10),
-          Row(
-            children: [
-              SizedBox(
-                height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
-                child: MaterialButton(
-                  elevation: 0,
-                  color: isActive("Tom") ? Colors.blue : Colors.blue[50],
-                  onPressed: () {
-                    setState(() {
-                      action = "Tom";
-                      print(action);
-                      ifTommorow();
-                    });
-                  },
-                  child: Center(
-                    child: Text(
-                      'Tommorrow',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        color: isActive("Tom") ? Colors.white : Colors.blue,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const Spacer(),
-              SizedBox(
-                height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
-                child: MaterialButton(
-                  elevation: 0,
-                  color: isActive("TSAT") ? Colors.blue : Colors.blue[50],
-                  onPressed: () {
-                    setState(() {
-                      action = "TSAT";
-                      print(action);
-                      satday();
-                    });
-                  },
-                  child: Center(
-                    child: Text(
-                      'This Saturday',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        color: isActive("TSAT") ? Colors.white : Colors.blue,
+                        color: isActive("15") ? Colors.white : Colors.blue,
                       ),
                     ),
                   ),
@@ -217,7 +163,7 @@ class sixpresetState extends State<sixpreset> {
               ),
             ],
           ),
-          spaceBox(10),
+          spaceBox(5),
           Row(
             children: [
               SizedBox(
@@ -225,47 +171,45 @@ class sixpresetState extends State<sixpreset> {
                 width: MediaQuery.of(context).size.width / 2.5,
                 child: MaterialButton(
                   elevation: 0,
-                  color: isActive("TSUN") ? Colors.blue : Colors.blue[50],
+                  color: isActive("30") ? Colors.blue : Colors.blue[50],
                   onPressed: () {
                     setState(() {
-                      action = "TSUN";
-                      print(action);
-                      sunday();
+                      action = "30";
+                      UpdateAction(action);
                     });
                   },
                   child: Center(
                     child: Text(
-                      'This Sunday',
+                      '30 Days later',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
-                        color: isActive("TSUN") ? Colors.white : Colors.blue,
+                        color: isActive("30") ? Colors.white : Colors.blue,
                       ),
                     ),
                   ),
                 ),
               ),
-              const Spacer(),
+              Spacer(),
               SizedBox(
                 height: 40,
                 width: MediaQuery.of(context).size.width / 2.5,
                 child: MaterialButton(
                   elevation: 0,
-                  color: isActive("NT") ? Colors.blue : Colors.blue[50],
+                  color: isActive("60") ? Colors.blue : Colors.blue[50],
                   onPressed: () {
                     setState(() {
-                      action = "NT";
-                      print(action);
-                      nxtTuesday();
+                      action = "60";
+                      UpdateAction(action);
                     });
                   },
                   child: Center(
                     child: Text(
-                      'Next Tuesday',
+                      '60 Days later',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
-                        color: isActive("NT") ? Colors.white : Colors.blue,
+                        color: isActive("60") ? Colors.white : Colors.blue,
                       ),
                     ),
                   ),
@@ -281,7 +225,7 @@ class sixpresetState extends State<sixpreset> {
             child: Row(
               children: <Widget>[
                 const SizedBox(
-                  width: 35,
+                  width: 42,
                 ),
                 InkWell(
                   //left Arrow
@@ -324,7 +268,7 @@ class sixpresetState extends State<sixpreset> {
                   },
                 ),
                 const SizedBox(
-                  width: 35,
+                  width: 42,
                 ),
               ],
             ),
@@ -342,7 +286,7 @@ class sixpresetState extends State<sixpreset> {
           ),
           Padding(
             padding:
-                const EdgeInsets.only(left: 16, right: 16, bottom: 0, top: 0),
+                const EdgeInsets.only(left: 4, right: 4, bottom: 0, top: 0),
             child: Row(
               children: [
                 Expanded(
@@ -358,19 +302,19 @@ class sixpresetState extends State<sixpreset> {
                         width: MediaQuery.of(context).size.width / 60,
                       ),
                       Text(
-                        startDate != null
-                            ? DateFormat('dd MMM yyyy').format(startDate!)
+                        endDate != null
+                            ? DateFormat('dd MMM yyyy').format(endDate!)
                             : '           ',
                         style: const TextStyle(fontSize: 11),
                       ),
                       const SizedBox(
-                        width: 10,
+                        width: 15,
                       )
                     ],
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 8,
+                  width: MediaQuery.of(context).size.width / 6,
                   height: MediaQuery.of(context).size.height / 28,
                 ),
                 SizedBox(
@@ -394,7 +338,7 @@ class sixpresetState extends State<sixpreset> {
                   ),
                 ),
                 const SizedBox(
-                  width: 5,
+                  width: 10,
                 ),
                 Container(
                   width: 58,
@@ -410,7 +354,7 @@ class sixpresetState extends State<sixpreset> {
                           const BorderRadius.all(Radius.circular(1.0)),
                       highlightColor: Colors.transparent,
                       onTap: () {
-                        Crud().sixPresetAdd(startDate!);
+                        Crud().fourPresetAdd(startDate!);
                         Navigator.pop(context);
                       },
                       child: const Center(
@@ -465,7 +409,14 @@ class sixpresetState extends State<sixpreset> {
     return false;
   }
 
+  UpdateAction(String instruction) {
+    if (instruction != "N") {
+      addDAys(startDate!, int.parse(instruction));
+    }
+  }
+
   bool isThisMonth(DateTime testDate) {
+    DateTime now = DateTime.now();
     if (DateFormat('MMMM yyyy').format(testDate) ==
         DateFormat('MMMM yyyy').format(currentMonthDate)) {
       return true;
@@ -522,16 +473,15 @@ class sixpresetState extends State<sixpreset> {
                           const BorderRadius.all(Radius.circular(32.0)),
                       onTap: () {
                         onDateClick(date);
-                        print(date);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(8),
                         child: SizedBox(
                           width: 27,
-                          height: 25,
+                          height: 26,
                           child: Container(
                             width: 27,
-                            height: 25,
+                            height: 26,
                             decoration: BoxDecoration(
                               color: CellContainerColor(date),
                               borderRadius:
@@ -589,77 +539,25 @@ class sixpresetState extends State<sixpreset> {
 
 //start DAte selctor
   void onDateClick(DateTime date) {
-    print(date);
+    // if (startDate!.month != date.month) {
+    //   setListOfDate(startDate!);
+    // }
+    print("date clicl");
     setState(() {
-      startDate = date;
+      startDate = endDate = date;
       currentMonthDate = startDate!;
-
       setListOfDate(currentMonthDate);
     });
   }
 
-  void ifTommorow() {
-    setState(() {
-      final startDate = DateTime.now().add(const Duration(days: 1));
-
-      onDateClick(startDate);
-    });
-  }
-
-  void yesterday() {
-    setState(() {
-      final startDate = DateTime.now().add(const Duration(days: -1));
-
-      onDateClick(startDate);
-    });
-  }
-
-  void satday() {
-    int temp = DateTime.now().weekday;
-
-    if (temp == 6) {
-    } else {
-      if (temp < 6) {
-        setState(() {
-          final startDate = DateTime.now().add(Duration(days: (6 - temp)));
-
-          onDateClick(startDate);
-        });
-      } else {
-        setState(() {
-          final startDate = DateTime.now().add(Duration(days: -(temp - 6)));
-
-          onDateClick(startDate);
-        });
-      }
-    }
-  }
-
-  void nxtTuesday() {
-    int temp = DateTime.now().weekday;
-
-    setState(() {
-      final startDate = DateTime.now().add(Duration(days: (9 - temp)));
-
-      onDateClick(startDate);
-    });
-  }
-
-  void sunday() {
-    int temp = DateTime.now().weekday;
-
-    if (temp != 7) {
-      setState(() {
-        final startDate = DateTime.now().add(Duration(days: -temp));
-
-        onDateClick(startDate);
-      });
-    }
+  bool is15(bool value) {
+    return !value;
   }
 
   void addDAys(DateTime date, int count) {
+    print("add days");
     setState(() {
-      final startDate = date.add(Duration(days: count));
+      final startDate = endDate = date.add(Duration(days: count));
 
       onDateClick(startDate);
     });

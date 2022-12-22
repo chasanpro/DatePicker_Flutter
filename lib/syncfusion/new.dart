@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:realtime/syncfusion/six.dart';
-import 'cc.dart';
+import 'fourPreset.dart';
 
 class newpractice extends StatefulWidget {
   const newpractice({Key? key}) : super(key: key);
@@ -34,7 +34,46 @@ class _newpracticeState extends State<newpractice> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const <Widget>[sixpreset()],
+                children: [
+                  Center(
+                    child: SizedBox(
+                      width: 130,
+                      height: 40,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blue[50],
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Icon(
+                              Icons.calendar_today_outlined,
+                              color: Colors.blue,
+                              size: 20,
+                            ),
+                            const Center(
+                              child: Text(
+                                '24 Mar 1999',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 10,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: const Icon(
+                                IconData(0xe16a, fontFamily: 'MaterialIcons'),
+                                color: Colors.blue,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),

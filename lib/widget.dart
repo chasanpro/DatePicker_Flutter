@@ -16,47 +16,56 @@ Widget realblktxt(String label, double sz) {
 }
 
 Widget withoutPreset() {
-  return SizedBox(
-    width: 400,
-    child: CupertinoButton(
-        color: const Color.fromARGB(255, 45, 152, 240),
-        child: const Text(
-          "Without preset",
-          style: TextStyle(
-            color: Colors.white,
+  return Padding(
+    padding: const EdgeInsets.all(12),
+    child: SizedBox(
+      width: 400,
+      child: CupertinoButton(
+          color: const Color.fromARGB(255, 45, 152, 240),
+          child: const Text(
+            "Without preset",
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
-        ),
-        onPressed: () {}),
+          onPressed: () {}),
+    ),
   );
 }
 
 Widget with4Presets() {
-  return SizedBox(
-    width: 400,
-    child: CupertinoButton(
-        color: const Color.fromARGB(255, 45, 152, 240),
-        child: const Text(
-          "Without preset",
-          style: TextStyle(
-            color: Colors.white,
+  return Padding(
+    padding: const EdgeInsets.all(12),
+    child: SizedBox(
+      width: 400,
+      child: CupertinoButton(
+          color: const Color.fromARGB(255, 45, 152, 240),
+          child: const Text(
+            "Without preset",
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
-        ),
-        onPressed: () {}),
+          onPressed: () {}),
+    ),
   );
 }
 
 Widget with6Presets() {
-  return SizedBox(
-    width: 400,
-    child: CupertinoButton(
-        color: const Color.fromARGB(255, 45, 152, 240),
-        child: const Text(
-          "Without preset",
-          style: TextStyle(
-            color: Colors.white,
+  return Padding(
+    padding: const EdgeInsets.all(12),
+    child: SizedBox(
+      width: 400,
+      child: CupertinoButton(
+          color: const Color.fromARGB(255, 45, 152, 240),
+          child: const Text(
+            "Without preset",
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
-        ),
-        onPressed: () {}),
+          onPressed: () {}),
+    ),
   );
 }
 
