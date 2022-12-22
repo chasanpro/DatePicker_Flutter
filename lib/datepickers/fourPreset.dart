@@ -188,9 +188,7 @@ class fourPresetState extends State<fourPreset> {
                 ),
               ),
             ),
-            const SizedBox(
-              width: 2,
-            ),
+            const Spacer(),
             SizedBox(
               height: 40,
               width: MediaQuery.of(context).size.width / 2.6,
@@ -304,6 +302,7 @@ class fourPresetState extends State<fourPreset> {
                     ),
                     Text(
                       DateFormat('dd MMM yyyy').format(startDate!),
+                      style: TextStyle(fontSize: 12),
                     ),
                     const SizedBox(
                       width: 5,
