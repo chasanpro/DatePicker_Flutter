@@ -107,14 +107,14 @@ class fourPresetState extends State<fourPreset> {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           // if (widget.typeofCalandar == "4P")
           Row(
             children: [
               SizedBox(
                 height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
                   color: isActive("N") ? Colors.blue : Colors.blue[50],
@@ -139,7 +139,7 @@ class fourPresetState extends State<fourPreset> {
               Spacer(),
               SizedBox(
                 height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
                   color: isActive("15") ? Colors.blue : Colors.blue[50],
@@ -168,7 +168,7 @@ class fourPresetState extends State<fourPreset> {
             children: [
               SizedBox(
                 height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
                   color: isActive("30") ? Colors.blue : Colors.blue[50],
@@ -190,10 +190,12 @@ class fourPresetState extends State<fourPreset> {
                   ),
                 ),
               ),
-              Spacer(),
+              SizedBox(
+                width: 2,
+              ),
               SizedBox(
                 height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
                   color: isActive("60") ? Colors.blue : Colors.blue[50],
@@ -248,7 +250,7 @@ class fourPresetState extends State<fourPreset> {
                       DateFormat('MMMM yyyy').format(currentMonthDate),
                       style: const TextStyle(
                           fontWeight: FontWeight.w400,
-                          fontSize: 15,
+                          fontSize: 11,
                           color: Colors.black),
                     ),
                   ),
@@ -284,6 +286,8 @@ class fourPresetState extends State<fourPreset> {
               children: getDaysNoUI(),
             ),
           ),
+          if (dateList.length > 40) spaceBox(8),
+          if (dateList.length < 40) spaceBox(6),
           Padding(
             padding:
                 const EdgeInsets.only(left: 4, right: 4, bottom: 0, top: 0),
@@ -305,20 +309,21 @@ class fourPresetState extends State<fourPreset> {
                         endDate != null
                             ? DateFormat('dd MMM yyyy').format(endDate!)
                             : '           ',
-                        style: const TextStyle(fontSize: 11),
+                        style: const TextStyle(fontSize: 10),
                       ),
                       const SizedBox(
-                        width: 15,
+                        width: 5,
                       )
                     ],
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 6,
+                  width: MediaQuery.of(context).size.width / 9,
                   height: MediaQuery.of(context).size.height / 28,
                 ),
                 SizedBox(
-                  width: 60,
+                  width: MediaQuery.of(context).size.width / 5,
+                  height: MediaQuery.of(context).size.height / 29,
                   child: MaterialButton(
                     elevation: 0,
                     color: Colors.blue[50],
@@ -388,7 +393,7 @@ class fourPresetState extends State<fourPreset> {
               child: Text(
                 DateFormat('EEE').format(dateList[i]),
                 style: const TextStyle(
-                  fontSize: 11,
+                  fontSize: 10,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -477,15 +482,15 @@ class fourPresetState extends State<fourPreset> {
                       child: Padding(
                         padding: const EdgeInsets.all(8),
                         child: SizedBox(
-                          width: 27,
-                          height: 26,
+                          width: 23,
+                          height: 23,
                           child: Container(
-                            width: 27,
-                            height: 26,
+                            width: 23,
+                            height: 23,
                             decoration: BoxDecoration(
                               color: CellContainerColor(date),
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(32.0)),
+                                  const BorderRadius.all(Radius.circular(20.0)),
                               border: Border.all(
                                 color: Colors.transparent,
                                 width: 2,

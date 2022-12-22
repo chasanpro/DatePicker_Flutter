@@ -111,7 +111,7 @@ class sixpresetState extends State<sixpreset> {
             children: [
               SizedBox(
                 height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
                   color: isActive("Y") ? Colors.blue : Colors.blue[50],
@@ -136,7 +136,7 @@ class sixpresetState extends State<sixpreset> {
               const Spacer(),
               SizedBox(
                 height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
                   color: isActive("Tod") ? Colors.blue : Colors.blue[50],
@@ -166,7 +166,7 @@ class sixpresetState extends State<sixpreset> {
             children: [
               SizedBox(
                 height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
                   color: isActive("Tom") ? Colors.blue : Colors.blue[50],
@@ -192,7 +192,7 @@ class sixpresetState extends State<sixpreset> {
               const Spacer(),
               SizedBox(
                 height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
                   color: isActive("TSAT") ? Colors.blue : Colors.blue[50],
@@ -222,7 +222,7 @@ class sixpresetState extends State<sixpreset> {
             children: [
               SizedBox(
                 height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
                   color: isActive("TSUN") ? Colors.blue : Colors.blue[50],
@@ -248,7 +248,7 @@ class sixpresetState extends State<sixpreset> {
               const Spacer(),
               SizedBox(
                 height: 40,
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
                   color: isActive("NT") ? Colors.blue : Colors.blue[50],
@@ -361,7 +361,7 @@ class sixpresetState extends State<sixpreset> {
                         startDate != null
                             ? DateFormat('dd MMM yyyy').format(startDate!)
                             : '           ',
-                        style: const TextStyle(fontSize: 11),
+                        style: const TextStyle(fontSize: 14),
                       ),
                       const SizedBox(
                         width: 10,
@@ -370,11 +370,11 @@ class sixpresetState extends State<sixpreset> {
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 8,
+                  width: MediaQuery.of(context).size.width / 10,
                   height: MediaQuery.of(context).size.height / 28,
                 ),
                 SizedBox(
-                  width: 60,
+                  width: 65,
                   child: MaterialButton(
                     elevation: 0,
                     color: Colors.blue[50],

@@ -16,10 +16,6 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox('RealBox');
   runApp(const MyApp());
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeRight,
-    DeviceOrientation.landscapeLeft,
-  ]);
 }
 
 class MyApp extends StatefulWidget {
@@ -90,11 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  insetPadding: const EdgeInsets.all(12),
+                                  insetPadding: const EdgeInsets.all(4),
                                   content: const FractionallySizedBox(
-                                      widthFactor: 0.95,
-                                      heightFactor: 0.5,
-                                      child: Expanded(child: noPreset())),
+                                      widthFactor: .99,
+                                      heightFactor: 0.531,
+                                      child: noPreset()),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
                                     side: const BorderSide(),
@@ -173,10 +169,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   insetPadding: const EdgeInsets.all(12),
-                                  content: Container(
-                                    child: const fourPreset(),
-                                    width: realwidth,
-                                    height: realheight / 2,
+                                  content: const FractionallySizedBox(
+                                    child: Expanded(child: fourPreset()),
+                                    widthFactor: .99,
+                                    heightFactor: .7,
                                   ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
@@ -259,7 +255,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   content: Container(
                                     child: const sixpreset(),
                                     width: realwidth,
-                                    height: realheight / 1.7,
+                                    height: realheight / 1.4,
                                   ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),

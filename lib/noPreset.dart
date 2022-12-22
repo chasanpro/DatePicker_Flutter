@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:realtime/hivedbops.dart';
+import 'package:realtime/widget.dart';
 
 // ignore: camel_case_types
 class noPreset extends StatefulWidget {
@@ -105,162 +106,162 @@ class noPresetState extends State<noPreset> {
   String action = "Never Ends";
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.contain,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              const SizedBox(
-                width: 42,
-              ),
-              InkWell(
-                //left Arrow
-                child: Ink(
-                    decoration: const ShapeDecoration(
-                      shape: CircleBorder(),
-                    ),
-                    child: const Icon(Icons.arrow_left_rounded, size: 52)),
-                onTap: () {
-                  setState(() {
-                    currentMonthDate = DateTime(
-                        currentMonthDate.year, currentMonthDate.month, 0);
-                    setListOfDate(currentMonthDate);
-                  });
-                },
-              ),
-              Expanded(
-                child: Center(
-                  child: Text(
-                    DateFormat('MMMM yyyy').format(currentMonthDate),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15,
-                        color: Colors.black),
-                  ),
-                ),
-              ),
-              InkWell(
-                child: Ink(
-                    decoration: const ShapeDecoration(
-                      shape: CircleBorder(),
-                    ),
-                    child: const Icon(Icons.arrow_right_rounded, size: 52)),
-                onTap: () {
-                  setState(() {
-                    currentMonthDate = DateTime(
-                        currentMonthDate.year, currentMonthDate.month + 2, 0);
-                    setListOfDate(currentMonthDate);
-                  });
-                },
-              ),
-              const SizedBox(
-                width: 42,
-              ),
-            ],
-          ),
-          //Day names
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: getDaysNameUI(),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 2, left: 2),
-            child: Column(
-              children: getDaysNoUI(),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            const SizedBox(
+              width: 42,
             ),
+            InkWell(
+              //left Arrow
+              child: Ink(
+                  decoration: const ShapeDecoration(
+                    shape: CircleBorder(),
+                  ),
+                  child: const Icon(Icons.arrow_left_rounded, size: 48)),
+              onTap: () {
+                setState(() {
+                  currentMonthDate = DateTime(
+                      currentMonthDate.year, currentMonthDate.month, 0);
+                  setListOfDate(currentMonthDate);
+                });
+              },
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  DateFormat('MMMM yyyy').format(currentMonthDate),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 13,
+                      color: Colors.black),
+                ),
+              ),
+            ),
+            InkWell(
+              child: Ink(
+                  decoration: const ShapeDecoration(
+                    shape: CircleBorder(),
+                  ),
+                  child: const Icon(Icons.arrow_right_rounded, size: 48)),
+              onTap: () {
+                setState(() {
+                  currentMonthDate = DateTime(
+                      currentMonthDate.year, currentMonthDate.month + 2, 0);
+                  setListOfDate(currentMonthDate);
+                });
+              },
+            ),
+            const SizedBox(
+              width: 42,
+            ),
+          ],
+        ),
+        //Day names
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: getDaysNameUI(),
+        ),
+        if (dateList.length > 40) spaceBox(8),
+        if (dateList.length < 40) spaceBox(6),
+
+        Padding(
+          padding: const EdgeInsets.only(right: 2, left: 2),
+          child: Column(
+            children: getDaysNoUI(),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 4, right: 4, bottom: 0, top: 2),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Icon(
-                        Icons.calendar_today_outlined,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 4, right: 4, bottom: 0, top: 0),
+          child: Row(
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(
+                      Icons.calendar_today_outlined,
+                      color: Colors.blue,
+                      size: 20,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 60,
+                    ),
+                    Text(
+                      endDate != null
+                          ? DateFormat('dd MMM yyyy').format(endDate!)
+                          : '           ',
+                      style: const TextStyle(fontSize: 10),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 6,
+                height: MediaQuery.of(context).size.height / 28,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 29,
+                child: MaterialButton(
+                  elevation: 0,
+                  color: Colors.blue[50],
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Center(
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 10,
                         color: Colors.blue,
-                        size: 20,
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 60,
-                      ),
-                      Text(
-                        endDate != null
-                            ? DateFormat('dd MMM yyyy').format(endDate!)
-                            : '           ',
-                        style: const TextStyle(fontSize: 11),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      )
-                    ],
+                    ),
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 8,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Container(
+                width: 60,
+                height: MediaQuery.of(context).size.height / 29,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 5,
-                  height: MediaQuery.of(context).size.height / 28,
-                  child: MaterialButton(
-                    elevation: 0,
-                    color: Colors.blue[50],
-                    onPressed: () {
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: const BorderRadius.all(Radius.circular(1.0)),
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      Crud().noPresetAdd(startDate!);
                       Navigator.pop(context);
                     },
                     child: const Center(
                       child: Text(
-                        'Cancel',
+                        'Save',
                         style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 10,
-                          color: Colors.blue,
-                        ),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                            color: Colors.white),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Container(
-                  width: 60,
-                  height: MediaQuery.of(context).size.height / 28,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(1.0)),
-                      highlightColor: Colors.transparent,
-                      onTap: () {
-                        Crud().noPresetAdd(startDate!);
-                        Navigator.pop(context);
-                      },
-                      child: const Center(
-                        child: Text(
-                          'Save',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 10,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 
@@ -271,11 +272,12 @@ class noPresetState extends State<noPreset> {
         Expanded(
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:
+                  const EdgeInsets.only(left: 8, right: 8, bottom: 0, top: 0),
               child: Text(
                 DateFormat('EEE').format(dateList[i]),
                 style: const TextStyle(
-                  fontSize: 11,
+                  fontSize: 10,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -362,17 +364,17 @@ class noPresetState extends State<noPreset> {
                         onDateClick(date);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
                         child: SizedBox(
-                          width: 27,
-                          height: 25,
+                          width: 20,
+                          height: 20,
                           child: Container(
-                            width: 27,
-                            height: 25,
+                            width: 20,
+                            height: 20,
                             decoration: BoxDecoration(
                               color: CellContainerColor(date),
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(32.0)),
+                                  const BorderRadius.all(Radius.circular(20.0)),
                               border: Border.all(
                                 color: Colors.transparent,
                                 width: 2,
@@ -385,7 +387,7 @@ class noPresetState extends State<noPreset> {
                                 style: TextStyle(
                                     color: cellColor(date),
                                     //past month color
-                                    fontSize: 12,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.normal),
                               ),
                             ),
@@ -411,18 +413,6 @@ class noPresetState extends State<noPreset> {
 
     return noList;
   }
-
-  // bool getIsInRange(DateTime date) {
-  //   if (startDate != null && endDate != null) {
-  //     if (date.isAfter(startDate!) && date.isBefore(endDate!)) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
 //start DAte selctor
   void onDateClick(DateTime date) {
