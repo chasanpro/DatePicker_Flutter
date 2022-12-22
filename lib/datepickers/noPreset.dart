@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, camel_case_types, duplicate_ignore, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -136,7 +136,7 @@ class noPresetState extends State<noPreset> {
                   DateFormat('MMMM yyyy').format(currentMonthDate),
                   style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 13,
+                      fontSize: 15,
                       color: Colors.black),
                 ),
               ),
@@ -191,10 +191,8 @@ class noPresetState extends State<noPreset> {
                       width: MediaQuery.of(context).size.width / 60,
                     ),
                     Text(
-                      endDate != null
-                          ? DateFormat('dd MMM yyyy').format(endDate!)
-                          : '           ',
-                      style: const TextStyle(fontSize: 10),
+                      DateFormat('dd MMM yyyy').format(startDate!),
+                      style: const TextStyle(fontSize: 14),
                     ),
                     const SizedBox(
                       width: 8,
@@ -208,7 +206,7 @@ class noPresetState extends State<noPreset> {
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
-                height: MediaQuery.of(context).size.height / 29,
+                height: MediaQuery.of(context).size.height / 20,
                 child: MaterialButton(
                   elevation: 0,
                   color: Colors.blue[50],
@@ -220,7 +218,7 @@ class noPresetState extends State<noPreset> {
                       'Cancel',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 10,
+                        fontSize: 15,
                         color: Colors.blue,
                       ),
                     ),
@@ -232,7 +230,7 @@ class noPresetState extends State<noPreset> {
               ),
               Container(
                 width: 60,
-                height: MediaQuery.of(context).size.height / 29,
+                height: MediaQuery.of(context).size.height / 22,
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                   borderRadius: const BorderRadius.all(Radius.circular(5.0)),
@@ -251,7 +249,7 @@ class noPresetState extends State<noPreset> {
                         'Save',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 10,
+                            fontSize: 15,
                             color: Colors.white),
                       ),
                     ),
@@ -277,7 +275,7 @@ class noPresetState extends State<noPreset> {
               child: Text(
                 DateFormat('EEE').format(dateList[i]),
                 style: const TextStyle(
-                  fontSize: 10,
+                  fontSize: 13,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -305,7 +303,6 @@ class noPresetState extends State<noPreset> {
   }
 
   bool isThisMonth(DateTime testDate) {
-    DateTime now = DateTime.now();
     if (DateFormat('MMMM yyyy').format(testDate) ==
         DateFormat('MMMM yyyy').format(currentMonthDate)) {
       return true;
@@ -366,11 +363,11 @@ class noPresetState extends State<noPreset> {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
                         child: SizedBox(
-                          width: 20,
-                          height: 20,
+                          width: 25,
+                          height: 25,
                           child: Container(
-                            width: 20,
-                            height: 20,
+                            width: 25,
+                            height: 25,
                             decoration: BoxDecoration(
                               color: CellContainerColor(date),
                               borderRadius:
@@ -387,7 +384,7 @@ class noPresetState extends State<noPreset> {
                                 style: TextStyle(
                                     color: cellColor(date),
                                     //past month color
-                                    fontSize: 10,
+                                    fontSize: 13,
                                     fontWeight: FontWeight.normal),
                               ),
                             ),
@@ -432,7 +429,6 @@ class noPresetState extends State<noPreset> {
   }
 
   void addDAys(DateTime date, int count) {
-    print("add days");
     setState(() {
       final startDate = endDate = date.add(Duration(days: count));
 

@@ -1,10 +1,10 @@
+// ignore_for_file: camel_case_types, avoid_print
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class second extends StatefulWidget {
-  second({super.key});
+  const second({super.key});
 
   @override
   State<second> createState() => _secondState();
@@ -14,10 +14,8 @@ class _secondState extends State<second> {
   @override
   Widget build(BuildContext context) {
     getData();
-    return Container(
-      child: Column(
-        children: [Text("tap")],
-      ),
+    return Column(
+      children: const [Text("tap")],
     );
   }
 }
@@ -27,5 +25,5 @@ void getData() {
   Hive.openBox('testBox');
   var box = Hive.box('testBox');
 
-  print('🤣🤣🤣Name: ${box.get('name')}');
+  print('Name: ${box.get('name')}');
 }

@@ -1,12 +1,13 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
+import 'package:realtime/hivedbops.dart';
 import 'package:realtime/widget.dart';
 
-import '../hivedbops.dart';
-
-class fourPreset extends StatefulWidget {
+class sixpreset extends StatefulWidget {
   final DateTime? minimumDate;
 
   final DateTime? maximumDate;
@@ -18,7 +19,7 @@ class fourPreset extends StatefulWidget {
 
   final Function(DateTime, DateTime)? startEndDateChange;
 
-  const fourPreset({
+  const sixpreset({
     Key? key,
     this.typeofCalandar,
     this.initialStartDate,
@@ -29,10 +30,10 @@ class fourPreset extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  fourPresetState createState() => fourPresetState();
+  sixpresetState createState() => sixpresetState();
 }
 
-class fourPresetState extends State<fourPreset> {
+class sixpresetState extends State<sixpreset> {
   final box = Hive.box('RealBox');
   List<DateTime> dateList = <DateTime>[];
 
@@ -40,15 +41,13 @@ class fourPresetState extends State<fourPreset> {
 
   DateTime? startDate;
 
-  DateTime? endDate;
-
   @override
   void initState() {
     setListOfDate(currentMonthDate);
     if (widget.initialStartDate != null) {
       startDate = widget.initialStartDate;
-    } else if (box.get('fourPreset') != null) {
-      startDate = box.get('fourPreset');
+    } else if (box.get('sixPreset') != null) {
+      startDate = box.get('sixPreset');
     } else {
       startDate = DateTime.now();
     }
@@ -63,9 +62,9 @@ class fourPresetState extends State<fourPreset> {
 
 //getting days form month
   void setListOfDate(DateTime monthDate) {
-    print("select list of date");
+
     dateList.clear();
-    var x = 0;
+
     final DateTime newDate = DateTime(monthDate.year, monthDate.month, 0);
     int previousMothDay = 0;
 
@@ -102,12 +101,12 @@ class fourPresetState extends State<fourPreset> {
     }
   }
 
-  String action = "Never Ends";
+  String action = "Today";
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           // if (widget.typeofCalandar == "4P")
           Row(
@@ -117,45 +116,46 @@ class fourPresetState extends State<fourPreset> {
                 width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
-                  color: isActive("N") ? Colors.blue : Colors.blue[50],
+                  color: isActive("Y") ? Colors.blue : Colors.blue[50],
                   onPressed: () {
                     setState(() {
-                      action = "N";
-                      UpdateAction(action);
+                      action = "Y";
+                      yesterday();
                     });
                   },
                   child: Center(
                     child: Text(
-                      'Never Ends',
+                      'Yesterday',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
-                        color: isActive("N") ? Colors.white : Colors.blue,
+                        color: isActive("Y") ? Colors.white : Colors.blue,
                       ),
                     ),
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 height: 40,
                 width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
-                  color: isActive("15") ? Colors.blue : Colors.blue[50],
+                  color: isActive("Tod") ? Colors.blue : Colors.blue[50],
                   onPressed: () {
                     setState(() {
-                      action = "15";
-                      UpdateAction(action);
+                      action = "Tod";
+              
+                      onDateClick(DateTime.now());
                     });
                   },
                   child: Center(
                     child: Text(
-                      '15 Days later',
+                      'Today',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
-                        color: isActive("15") ? Colors.white : Colors.blue,
+                        color: isActive("Tod") ? Colors.white : Colors.blue,
                       ),
                     ),
                   ),
@@ -163,7 +163,7 @@ class fourPresetState extends State<fourPreset> {
               ),
             ],
           ),
-          spaceBox(5),
+          spaceBox(10),
           Row(
             children: [
               SizedBox(
@@ -171,47 +171,103 @@ class fourPresetState extends State<fourPreset> {
                 width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
-                  color: isActive("30") ? Colors.blue : Colors.blue[50],
+                  color: isActive("Tom") ? Colors.blue : Colors.blue[50],
                   onPressed: () {
                     setState(() {
-                      action = "30";
-                      UpdateAction(action);
+                      action = "Tom";
+
+                      ifTommorow();
                     });
                   },
                   child: Center(
                     child: Text(
-                      '30 Days later',
+                      'Tommorrow',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
-                        color: isActive("30") ? Colors.white : Colors.blue,
+                        color: isActive("Tom") ? Colors.white : Colors.blue,
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                width: 2,
-              ),
+              const Spacer(),
               SizedBox(
                 height: 40,
                 width: MediaQuery.of(context).size.width / 2.6,
                 child: MaterialButton(
                   elevation: 0,
-                  color: isActive("60") ? Colors.blue : Colors.blue[50],
+                  color: isActive("TSAT") ? Colors.blue : Colors.blue[50],
                   onPressed: () {
                     setState(() {
-                      action = "60";
-                      UpdateAction(action);
+                      action = "TSAT";
+             
+                      satday();
                     });
                   },
                   child: Center(
                     child: Text(
-                      '60 Days later',
+                      'This Saturday',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
-                        color: isActive("60") ? Colors.white : Colors.blue,
+                        color: isActive("TSAT") ? Colors.white : Colors.blue,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          spaceBox(10),
+          Row(
+            children: [
+              SizedBox(
+                height: 40,
+                width: MediaQuery.of(context).size.width / 2.6,
+                child: MaterialButton(
+                  elevation: 0,
+                  color: isActive("TSUN") ? Colors.blue : Colors.blue[50],
+                  onPressed: () {
+                    setState(() {
+                      action = "TSUN";
+                
+                      sunday();
+                    });
+                  },
+                  child: Center(
+                    child: Text(
+                      'This Sunday',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                        color: isActive("TSUN") ? Colors.white : Colors.blue,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const Spacer(),
+              SizedBox(
+                height: 40,
+                width: MediaQuery.of(context).size.width / 2.6,
+                child: MaterialButton(
+                  elevation: 0,
+                  color: isActive("NT") ? Colors.blue : Colors.blue[50],
+                  onPressed: () {
+                    setState(() {
+                      action = "NT";
+
+                      nxtTuesday();
+                    });
+                  },
+                  child: Center(
+                    child: Text(
+                      'Next Tuesday',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                        color: isActive("NT") ? Colors.white : Colors.blue,
                       ),
                     ),
                   ),
@@ -227,7 +283,7 @@ class fourPresetState extends State<fourPreset> {
             child: Row(
               children: <Widget>[
                 const SizedBox(
-                  width: 42,
+                  width: 35,
                 ),
                 InkWell(
                   //left Arrow
@@ -250,7 +306,7 @@ class fourPresetState extends State<fourPreset> {
                       DateFormat('MMMM yyyy').format(currentMonthDate),
                       style: const TextStyle(
                           fontWeight: FontWeight.w400,
-                          fontSize: 11,
+                          fontSize: 15,
                           color: Colors.black),
                     ),
                   ),
@@ -270,7 +326,7 @@ class fourPresetState extends State<fourPreset> {
                   },
                 ),
                 const SizedBox(
-                  width: 42,
+                  width: 35,
                 ),
               ],
             ),
@@ -286,11 +342,9 @@ class fourPresetState extends State<fourPreset> {
               children: getDaysNoUI(),
             ),
           ),
-          if (dateList.length > 40) spaceBox(8),
-          if (dateList.length < 40) spaceBox(6),
           Padding(
             padding:
-                const EdgeInsets.only(left: 4, right: 4, bottom: 0, top: 0),
+                const EdgeInsets.only(left: 16, right: 16, bottom: 0, top: 0),
             child: Row(
               children: [
                 Expanded(
@@ -306,24 +360,21 @@ class fourPresetState extends State<fourPreset> {
                         width: MediaQuery.of(context).size.width / 60,
                       ),
                       Text(
-                        endDate != null
-                            ? DateFormat('dd MMM yyyy').format(endDate!)
-                            : '           ',
-                        style: const TextStyle(fontSize: 10),
+                        DateFormat('dd MMM yyyy').format(startDate!),
+                        style: const TextStyle(fontSize: 14),
                       ),
                       const SizedBox(
-                        width: 5,
+                        width: 10,
                       )
                     ],
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 9,
-                  height: MediaQuery.of(context).size.height / 28,
+                  width: MediaQuery.of(context).size.width / 10,
+                  height: MediaQuery.of(context).size.height / 20,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 5,
-                  height: MediaQuery.of(context).size.height / 29,
+                  width: 65,
                   child: MaterialButton(
                     elevation: 0,
                     color: Colors.blue[50],
@@ -343,11 +394,11 @@ class fourPresetState extends State<fourPreset> {
                   ),
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 5,
                 ),
                 Container(
                   width: 58,
-                  height: 28,
+                  height: 30,
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: const BorderRadius.all(Radius.circular(5.0)),
@@ -359,7 +410,7 @@ class fourPresetState extends State<fourPreset> {
                           const BorderRadius.all(Radius.circular(1.0)),
                       highlightColor: Colors.transparent,
                       onTap: () {
-                        Crud().fourPresetAdd(startDate!);
+                        Crud().sixPresetAdd(startDate!);
                         Navigator.pop(context);
                       },
                       child: const Center(
@@ -393,7 +444,7 @@ class fourPresetState extends State<fourPreset> {
               child: Text(
                 DateFormat('EEE').format(dateList[i]),
                 style: const TextStyle(
-                  fontSize: 10,
+                  fontSize: 13,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -414,14 +465,7 @@ class fourPresetState extends State<fourPreset> {
     return false;
   }
 
-  UpdateAction(String instruction) {
-    if (instruction != "N") {
-      addDAys(startDate!, int.parse(instruction));
-    }
-  }
-
   bool isThisMonth(DateTime testDate) {
-    DateTime now = DateTime.now();
     if (DateFormat('MMMM yyyy').format(testDate) ==
         DateFormat('MMMM yyyy').format(currentMonthDate)) {
       return true;
@@ -478,19 +522,20 @@ class fourPresetState extends State<fourPreset> {
                           const BorderRadius.all(Radius.circular(32.0)),
                       onTap: () {
                         onDateClick(date);
+              
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(10),
                         child: SizedBox(
-                          width: 23,
-                          height: 23,
+                          width: 27,
+                          height: 25,
                           child: Container(
-                            width: 23,
-                            height: 23,
+                            width: 27,
+                            height: 25,
                             decoration: BoxDecoration(
                               color: CellContainerColor(date),
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(20.0)),
+                                  const BorderRadius.all(Radius.circular(32.0)),
                               border: Border.all(
                                 color: Colors.transparent,
                                 width: 2,
@@ -544,25 +589,77 @@ class fourPresetState extends State<fourPreset> {
 
 //start DAte selctor
   void onDateClick(DateTime date) {
-    // if (startDate!.month != date.month) {
-    //   setListOfDate(startDate!);
-    // }
-    print("date clicl");
+
     setState(() {
-      startDate = endDate = date;
+      startDate = date;
       currentMonthDate = startDate!;
+
       setListOfDate(currentMonthDate);
     });
   }
 
-  bool is15(bool value) {
-    return !value;
+  void ifTommorow() {
+    setState(() {
+      final startDate = DateTime.now().add(const Duration(days: 1));
+
+      onDateClick(startDate);
+    });
+  }
+
+  void yesterday() {
+    setState(() {
+      final startDate = DateTime.now().add(const Duration(days: -1));
+
+      onDateClick(startDate);
+    });
+  }
+
+  void satday() {
+    int temp = DateTime.now().weekday;
+
+    if (temp == 6) {
+    } else {
+      if (temp < 6) {
+        setState(() {
+          final startDate = DateTime.now().add(Duration(days: (6 - temp)));
+
+          onDateClick(startDate);
+        });
+      } else {
+        setState(() {
+          final startDate = DateTime.now().add(Duration(days: -(temp - 6)));
+
+          onDateClick(startDate);
+        });
+      }
+    }
+  }
+
+  void nxtTuesday() {
+    int temp = DateTime.now().weekday;
+
+    setState(() {
+      final startDate = DateTime.now().add(Duration(days: (9 - temp)));
+
+      onDateClick(startDate);
+    });
+  }
+
+  void sunday() {
+    int temp = DateTime.now().weekday;
+
+    if (temp != 7) {
+      setState(() {
+        final startDate = DateTime.now().add(Duration(days: -temp));
+
+        onDateClick(startDate);
+      });
+    }
   }
 
   void addDAys(DateTime date, int count) {
-    print("add days");
     setState(() {
-      final startDate = endDate = date.add(Duration(days: count));
+      final startDate = date.add(Duration(days: count));
 
       onDateClick(startDate);
     });

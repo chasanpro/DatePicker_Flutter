@@ -1,16 +1,16 @@
-// ignore_for_file: sized_box_for_whitespace, sort_child_properties_last
+// ignore_for_file: sized_box_for_whitespace, sort_child_properties_last, avoid_print
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:realtime/hivedbops.dart';
 
-import 'package:realtime/syncfusion/fourPreset.dart';
+import 'package:realtime/datepickers/fourPreset.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:realtime/syncfusion/six.dart';
+import 'package:realtime/datepickers/sixpreset.dart';
 import 'package:realtime/widget.dart';
 
-import 'noPreset.dart';
+import 'datepickers/noPreset.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -46,7 +46,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final box = Hive.box('RealBox');
   refresh() {
-    final box = Hive.box('RealBox');
     setState(() {});
   }
 
@@ -68,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: realblktxt("Calendar widgets", 20)),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(12),
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   insetPadding: const EdgeInsets.all(4),
                                   content: const FractionallySizedBox(
                                       widthFactor: .99,
-                                      heightFactor: 0.531,
+                                      heightFactor: 0.537,
                                       child: noPreset()),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
@@ -170,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 return AlertDialog(
                                   insetPadding: const EdgeInsets.all(12),
                                   content: const FractionallySizedBox(
-                                    child: Expanded(child: fourPreset()),
+                                    child: fourPreset(),
                                     widthFactor: .99,
                                     heightFactor: .7,
                                   ),
@@ -263,7 +263,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 );
                               }).then((value) => {refresh()});
-                          ;
                         }),
                   ),
                 ),
@@ -325,7 +324,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> deleteDate(key) async {
-    var boz = await Hive.box('RealBox');
     box.delete(key);
   }
 }

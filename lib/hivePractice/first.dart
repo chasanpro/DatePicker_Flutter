@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:hive/hive.dart';
-import 'package:realtime/second.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:realtime/hivePractice/second.dart';
 
 // ignore: camel_case_types
 class first extends StatefulWidget {
@@ -34,7 +34,7 @@ class _firstState extends State<first> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => second()),
+                      MaterialPageRoute(builder: (context) => const second()),
                     );
                   }),
             )

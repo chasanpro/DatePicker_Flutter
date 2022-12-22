@@ -76,10 +76,10 @@ Widget spaceBox(double sz) {
 }
 
 calendar_() {
-  return AlertDialog(
-    title: new Text("Alert!!"),
-    content: new Text("You are awesome!"),
-    actions: const <Widget>[],
+  return const AlertDialog(
+    title: Text("Alert!!"),
+    content: Text("You are awesome!"),
+    actions: <Widget>[],
   );
 }
 
@@ -93,6 +93,6 @@ realArrow() {
 Widget realButton() {
   return CupertinoButton(
     onPressed: () {},
-    child: Text("Chasanpro"),
+    child: const Text("Chasanpro"),
   );
 }
