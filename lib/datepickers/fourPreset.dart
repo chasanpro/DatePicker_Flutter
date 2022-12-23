@@ -314,22 +314,28 @@ class fourPresetState extends State<fourPreset> {
                 width: MediaQuery.of(context).size.width / 9,
                 height: MediaQuery.of(context).size.height / 28,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 5,
-                height: MediaQuery.of(context).size.height / 22,
-                child: MaterialButton(
-                  elevation: 0,
+              Container(
+                width: 70,
+                height: MediaQuery.of(context).size.height / 20,
+                decoration: BoxDecoration(
                   color: Colors.blue[50],
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Center(
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        color: Colors.blue,
+                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: const BorderRadius.all(Radius.circular(1.0)),
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Center(
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            color: Colors.blue),
                       ),
                     ),
                   ),
@@ -339,11 +345,11 @@ class fourPresetState extends State<fourPreset> {
                 width: 10,
               ),
               Container(
-                width: 58,
-                height: 32,
+                width: 70,
+                height: MediaQuery.of(context).size.height / 20,
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                 ),
                 child: Material(
                   color: Colors.transparent,
@@ -359,7 +365,7 @@ class fourPresetState extends State<fourPreset> {
                         'Save',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 12,
+                            fontSize: 15,
                             color: Colors.white),
                       ),
                     ),

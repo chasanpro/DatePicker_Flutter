@@ -204,22 +204,28 @@ class noPresetState extends State<noPreset> {
                 width: MediaQuery.of(context).size.width / 6,
                 height: MediaQuery.of(context).size.height / 28,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 5,
+              Container(
+                width: 70,
                 height: MediaQuery.of(context).size.height / 20,
-                child: MaterialButton(
-                  elevation: 0,
+                decoration: BoxDecoration(
                   color: Colors.blue[50],
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Center(
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15,
-                        color: Colors.blue,
+                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: const BorderRadius.all(Radius.circular(1.0)),
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Center(
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            color: Colors.blue),
                       ),
                     ),
                   ),
@@ -229,11 +235,11 @@ class noPresetState extends State<noPreset> {
                 width: 10,
               ),
               Container(
-                width: 60,
-                height: MediaQuery.of(context).size.height / 22,
+                width: 70,
+                height: MediaQuery.of(context).size.height / 20,
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                 ),
                 child: Material(
                   color: Colors.transparent,

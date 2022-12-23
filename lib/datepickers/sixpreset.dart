@@ -62,7 +62,6 @@ class sixpresetState extends State<sixpreset> {
 
 //getting days form month
   void setListOfDate(DateTime monthDate) {
-
     dateList.clear();
 
     final DateTime newDate = DateTime(monthDate.year, monthDate.month, 0);
@@ -145,7 +144,7 @@ class sixpresetState extends State<sixpreset> {
                   onPressed: () {
                     setState(() {
                       action = "Tod";
-              
+
                       onDateClick(DateTime.now());
                     });
                   },
@@ -201,7 +200,7 @@ class sixpresetState extends State<sixpreset> {
                   onPressed: () {
                     setState(() {
                       action = "TSAT";
-             
+
                       satday();
                     });
                   },
@@ -231,7 +230,7 @@ class sixpresetState extends State<sixpreset> {
                   onPressed: () {
                     setState(() {
                       action = "TSUN";
-                
+
                       sunday();
                     });
                   },
@@ -373,35 +372,43 @@ class sixpresetState extends State<sixpreset> {
                   width: MediaQuery.of(context).size.width / 10,
                   height: MediaQuery.of(context).size.height / 20,
                 ),
-                SizedBox(
-                  width: 65,
-                  child: MaterialButton(
-                    elevation: 0,
+                Container(
+                  width: 70,
+                  height: MediaQuery.of(context).size.height / 20,
+                  decoration: BoxDecoration(
                     color: Colors.blue[50],
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Center(
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 10,
-                          color: Colors.blue,
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(1.0)),
+                      highlightColor: Colors.transparent,
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Center(
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.blue),
                         ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(
-                  width: 5,
+                  width: 10,
                 ),
                 Container(
-                  width: 58,
-                  height: 30,
+                  width: 70,
+                  height: MediaQuery.of(context).size.height / 20,
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                   ),
                   child: Material(
                     color: Colors.transparent,
@@ -418,7 +425,7 @@ class sixpresetState extends State<sixpreset> {
                           'Save',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 10,
+                              fontSize: 15,
                               color: Colors.white),
                         ),
                       ),
@@ -522,7 +529,6 @@ class sixpresetState extends State<sixpreset> {
                           const BorderRadius.all(Radius.circular(32.0)),
                       onTap: () {
                         onDateClick(date);
-              
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10),
@@ -589,7 +595,6 @@ class sixpresetState extends State<sixpreset> {
 
 //start DAte selctor
   void onDateClick(DateTime date) {
-
     setState(() {
       startDate = date;
       currentMonthDate = startDate!;
