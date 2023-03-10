@@ -1,8 +1,12 @@
 # realtime
 
-A new Flutter project.
+
 
 ## Getting Started
+
+https://user-images.githubusercontent.com/61396515/224225451-724ada6c-d770-4a52-ac01-addd750bafe4.mp4
+
+
 
 This project is a starting point for a Flutter application.
 
